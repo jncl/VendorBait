@@ -1,18 +1,17 @@
 
-local myname, ns = ...
-
+local _, ns = ...
 
 local R, G, B = .95, .95, .32
-local SPEEDS, TIMERS, SHINES, SPACING = {2, 4, 6, 8}, {0, 0, 0, 0}, {}, 6
-
+local SPEEDS = {2, 4, 6, 8}
+-- local SPEEDS, TIMERS, SHINES, SPACING = {2, 4, 6, 8}, {0, 0, 0, 0}, {}, 6
 
 local function OnUpdate(self, elapsed)
-	for i,timer in pairs(self.timers) do
+	for i,timer in _G.pairs(self.timers) do
 		self.timers[i] = timer + elapsed
-		if self.timers[i] > SPEEDS[i]*4 then self.timers[i] = 0 end
+		if self.timers[i] > SPEEDS[i] * 4 then self.timers[i] = 0 end
 	end
 
-	local parent, distance = self, self:GetWidth()
+	local _, distance = self, self:GetWidth()
 
 	for i=1,4 do
 		local timer, speed = self.timers[i], SPEEDS[i]
@@ -47,7 +46,7 @@ end
 
 
 function ns.newShiner(parent, r, g, b)
-	local f = CreateFrame("Frame", nil, parent or UIParent)
+	local f = _G.CreateFrame("Frame", nil, parent or _G.UIParent)
 	f.sparkles, f.timers = {}, {0, 0, 0, 0}
 
 	for i=1,16 do

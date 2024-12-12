@@ -2,7 +2,7 @@
 local myname, ns = ...
 
 
-local frame = CreateFrame("Frame")
+local frame = _G.CreateFrame("Frame")
 
 
 function ns.RegisterEvent(event, func)
@@ -43,13 +43,13 @@ local function ProcessOnLoad(arg1)
 
   if ns.dbname then
     local defaults = ns.dbdefaults or {}
-    _G[ns.dbname] = setmetatable(_G[ns.dbname] or {}, {__index = defaults})
+    _G[ns.dbname] = _G.setmetatable(_G[ns.dbname] or {}, {__index = defaults})
     ns.db = _G[ns.dbname]
   end
 
   if ns.dbpcname then
     local defaults = ns.dbpcdefaults or {}
-    _G[ns.dbpcname] = setmetatable(_G[ns.dbpcname] or {}, {__index = defaults})
+    _G[ns.dbpcname] = _G.setmetatable(_G[ns.dbpcname] or {}, {__index = defaults})
     ns.dbpc = _G[ns.dbpcname]
   end
 
@@ -63,7 +63,7 @@ local function ProcessOnLoad(arg1)
 
   if ns.dbdefaults or ns.dbpcdefaults then ns.RegisterEvent("PLAYER_LOGOUT") end
 
-  if IsLoggedIn() then ProcessOnLogin()
+  if _G.IsLoggedIn() then ProcessOnLogin()
   else frame:RegisterEvent("PLAYER_LOGIN") end
 end
 
@@ -77,7 +77,7 @@ local function ProcessLogout()
   end
 
   if ns.dbpcdefaults then
-    for i,v in pairs(ns.dbpcdefaults) do
+    for i,v in _G.pairs(ns.dbpcdefaults) do
       if ns.dbpc[i] == v then ns.dbpc[i] = nil end
     end
   end
